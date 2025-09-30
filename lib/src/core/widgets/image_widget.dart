@@ -1,0 +1,50 @@
+import 'package:flutter/material.dart';
+
+import '../utils.dart';
+
+class ImageWidget extends StatelessWidget {
+  const ImageWidget({
+    super.key,
+    required this.url,
+    this.fit,
+    this.alignment = Alignment.center,
+    this.borderRadius = BorderRadius.zero,
+  });
+
+  final String url;
+  final BoxFit? fit;
+  final AlignmentGeometry alignment;
+  final BorderRadiusGeometry borderRadius;
+
+  static Widget frameBuilder(
+    BuildContext context,
+    Widget child,
+    int? frame,
+    bool wasSynchronouslyLoaded,
+  ) {
+    return AnimatedOpacity(
+      opacity: frame == null ? 0.0 : 1.0,
+      duration: const Duration(milliseconds: 1000),
+      curve: Curves.easeInOut,
+      child: child,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: Image.network(
+        url,
+        fit: fit,
+        alignment: alignment,
+        frameBuilder: frameBuilder,
+        errorBuilder: (context, error, stackTrace) {
+          logger(error);
+
+          return const SizedBox();
+        },
+      ),
+    );
+  }
+}
