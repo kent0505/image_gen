@@ -22,9 +22,9 @@ abstract final class Constants {
 }
 
 abstract final class Assets {
-  // static const String back = 'assets/back.svg';
+  static const String back = 'assets/back.svg';
 }
 
 abstract final class Keys {
-  // static const String onboard = 'onboard';
+  static const String onboard = 'onboard';
 }
